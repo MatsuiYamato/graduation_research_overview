@@ -1,0 +1,106 @@
+\documentclass[10pt]{jarticle}
+\usepackage{float}
+\usepackage{adrobo_abst}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amssymb,amsmath}
+\usepackage{bm}
+\usepackage[superscript]{cite}
+\usepackage{enumerate}
+\usepackage{url}
+%\usepackage[absolute]{textpos}
+
+\renewcommand\citeform[1]{(#1)}
+
+\begin{document}
+    
+    \makeatletter
+    \doctype{2023年度卒業論文概要}
+    \title{自律移動ロボットのためのYOLOv5を用いた\\AutoMSRCR画像からの水たまり検出}{}
+    \etitle{Making Research Paper}{($\bigcirc\bigcirc\bigcirc$)}
+    
+    \author{20C1106\hspace{.5zw}松井大和}
+    \eauthor{Yamato Matsui}
+    
+    \makeatother
+    
+    \abstract{When preparing the manuscript, read and observe carefully this sample as well as the instruction manual for the manuscript of the Transaction of Japan Society of Mechanical Engineers. This sample was prepared using MS-word. Character size of the English title is 14 pts of Times New Roman as well as sub-title. The name is 12 pts. The address of the first author and the abstract is 10 pts of Times New Roman. Character spacing of the abstract is narrowed by 0.2 pts preferably.}
+    
+    \keywords{Mechanical Engineering, Keywords List}
+    
+    \maketitle
+    
+    \supervisor{指導教員：上田隆一 准教授}
+    
+    \section{緒\hspace{2zw}言}%===========================
+    
+    近年, 日本では労働人口の減少が問題となっており, 
+    その解決のため自律移動ロボットの利用が試みられている. 
+    自律移動ロボットを施設の清掃や警備, 荷物の運搬などに利用するには
+    利用環境に適応させるため様々な技術が必要である. 
+    特に障害物回避はロボットや環境の保護のために不可欠な技術であり, 
+    主に立体的な障害物を題材に研究開発が行われてきた. 
+    しかし屋外には水たまりやマンホールをはじめとする平面的な障害物が存在し, 
+    それらの回避も求められる場合がある. ロボットが水たまり上を走行すると, 
+    浸水による故障, 窪みによるスタックやオドメトリの誤差の増加, 
+    水の飛散による周囲の人への被害などを及ぼすことが予測される. 
+    したがって屋外自律移動ロボットには水たまりを検出し回避することが, 
+    重要な課題となる.\\ 
+    　しかし, 水たまりは不規則な形状であることや景色の映り込みが発生しやすい性質から, 
+    検出が困難である. そのため形状や反射光に左右されない検出手法が求められる.\\
+    　 水たまり検出に関する取り組みとして, 
+    色調を調整したカメラ画像からYOLOを用いて水たまり検出を行った研究がある. 
+    XiaodongらはYOLOにおける通常のカメラ画像からの水たまり検出が困難である原因が水の性質による
+    低コントラスト化と考え, 水のコントラストを高めるため画像に処理をかけ強化する手法を提案した. 
+    この研究では複数の画像強化手法を比較検証し, 
+    AutoMSRCR処理を施した画像を学習させたモデルで水たまりの検出性能の向上を確認している. 
+    しかし, この研究では露出オーバーの発生した環境での有効性を確認したのみで, 
+    自律移動ロボットが走行するような舗装された路面上や
+    電信柱などの環境の映り込みが発生しやすい環境での有効性の確認と, 
+    自律移動ロボットによる検出した水たまりの回避は行われていない. \\
+    　そこで, 本研究ではAutoMSRCR画像からの水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
+    具体的には舗装された路面上や電信柱などの環境の映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
+    の有効性の検証と, 自律移動ロボットによる検出した水たまりの回避を行う.
+
+
+
+
+
+    
+
+
+
+    
+    
+ 
+    \vspace{5truemm}
+    {\footnotesize
+        \begin{thebibliography}{99}
+            
+            \bibitem{工大2005}
+            工大太郎: ``ロボットのしくみ'', 
+            日本機械学会論文誌A, 
+            Vol.~108, No.~1034 (2005), pp.~1--2.
+            
+            \bibitem{Shibutani2004}
+            Y. Shibutani: ``Heinrich's Law Resulted Pattern Dynamics --Part2--''，
+            Proceedings of the 79th Kansai Branch Regular Meeting of the Japan Society of Mechanical Engineers,  
+            No.~04--05 (2004), pp.~205--206.
+            
+            \bibitem{Handbook1979}
+            The Japan Society of Mechanical Engineers ed.: ``JSME Date Handbook: Heat Transfer'', 
+            (1979), p.~123, The Japan Society of Mechanical Engineers.
+            
+            \bibitem{Kikuchi2017}
+            K. Kikuchi, M. Miura, K. Shibata, J. Yamamura: ``Soft Landing Condition for Stair-climbing Robot with Hopping Mechanism'', 
+            Journal of JSDE, Vol.~53, No.~8 (2018), pp.~605--614, \url{https://doi.org/10.14953/jjsde.2017.2774}.
+            
+            \bibitem{Adrobo2019}
+            千葉工業大学 未来ロボティクス学科 学科概要: 
+            \url{http://www.robotics.it-chiba.ac.jp/ja/subject/index.html}， 
+            （参照日 2023年1月29日）. 
+            
+        \end{thebibliography}
+    }
+    \normalsize
+    
+\end{document}
