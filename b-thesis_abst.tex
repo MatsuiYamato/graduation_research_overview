@@ -7,6 +7,7 @@
 \usepackage[superscript]{cite}
 \usepackage{enumerate}
 \usepackage{url}
+\usepackage{here}
 %\usepackage[absolute]{textpos}
 
 \renewcommand\citeform[1]{(#1)}
@@ -35,8 +36,8 @@
     
     近年, 日本では労働人口の減少が問題となっており, 
     その解決のため自律移動ロボットの利用が試みられている. 
-    自律移動ロボットを施設の清掃や警備, 荷物の運搬などに利用するには
-    利用環境に適応させるため様々な技術が求められる. 
+    自律移動ロボットを施設の清掃や警備, 荷物の運搬などに利用するためには
+    様々な技術が求められる. 
     特に障害物回避はロボットや環境の保護のために不可欠な技術であり, 
     これまで主に立体的な障害物を対象に研究開発が進められてきた. 
     しかしながら, 屋外には水たまりをはじめとする平面的な障害物も存在し, 
@@ -55,18 +56,91 @@
     AutoMSRCR処理を施した画像を学習させたモデルで水たまりの検出性能の向上を確認している. 
     しかし, この研究では露出オーバーの発生した環境での有効性を確認したのみで, 
     自律移動ロボットが走行するような舗装された路面上や
-    電信柱などの環境の映り込みが発生しやすい環境での有効性の確認と, 
-    自律移動ロボットによる検出した水たまりの回避は行われていない. \\
+    電信柱などの環境の映り込みが発生しやすい環境での有効性の確認がされていない.  
+    また自律移動ロボットによる検出した水たまりの回避は行われていない. \\
     　そこで, 本研究ではAutoMSRCR画像からの水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
-    具体的には舗装された路面上や電信柱などの環境の映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
+    具体的には舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性の検証と, 自律移動ロボットによる検出した水たまりの回避を行う.
 
 
     \section{手法}%===========================
-        XiaodongらのAutoMSRCR画像からの水たまり検出手法について述べる. 
-    \subsection{データセットの作成}
-    あああああああああああああ
+        XiaodongらのAutoMSRCR画像からの水たまり検出手法と
+        自律移動ロボットによる検出した水たまりの回避の手法について述べる. 
+    \subsection{データセットの作成と学習}
+    　以下がXiaodongらの研究で用いたデータセットの作成と学習の手順である. 
+    \begin{quote}
+        \begin{itemize}
+         \item 水たまりを含む画像の撮影
+         \item 撮影した画像にAutoMSRCR処理
+         \item 水たまり部分をアノテーション
+         \item YOLOを用いて学習
+        \end{itemize}
+       \end{quote}
+    自律移動ロボットが走行するような環境での本手法の有効性の検証が目的となるため
+    映り込みの多い環境や舗装された路面の水たまりを中心に撮影する. 今回は651枚の画像を用意した. 
+    撮影した画像に対しAutoMSRCR処理を適用する. 
+    \begin{figure}[H]
+        \begin{tabular}{cc}
+            \begin{minipage}{.1\textwidth}
+                \vspace{5mm}\centering
+                \includegraphics[width=2.0\linewidth]{./fig/fig1.png}
+                \caption{Original}
+                \label{fig_first}
+            \end{minipage}
+            \begin{minipage}{.5\textwidth}
+                \vspace{5mm}\centering\centering
+                \includegraphics[width=0.4\linewidth]{./fig/fig2.png}
+                \caption{AutoMSRCR}
+                \label{fig_second}
+            \end{minipage}
+        \end{tabular}
+    \end{figure}
+    その際データセットの作成に使用する画像と推定に用いる画像の両方に適用する. 
+    アノテーションツールにはVoTTを使用し, 1クラスのみでタグ付けを行う. 
+    このようにして作成したデータセットをYOLOv5を用いて学習する. 
 
+    \subsection{検出した水たまりの回避}
+    （実装が間に合っていないため終わりしだい追記予定）
+
+    \section{実験}%===========================
+    舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
+    の有効性を検証する. 
+    \subsection{移動ロボットを動かす環境でのAutoMSRCR画像からの水たまり検出手法の有効性の検証}
+    　評価のため用意した水たまりを含む画像から10枚を抽出し, 
+    オリジナル画像の学習モデルとAutoMSRCR画像の学習モデルのそれぞれを使用して推定, 評価を行う. \\
+    　評価基準は以下のものとする. 
+    \begin{quote}
+        \begin{itemize}
+         \item Recall(R) 
+         \item Precision(P) 
+         \item しきい値: IoU 0.5
+         \item RとP両方の値が1.0だった場合を正解とする
+         
+        \end{itemize}
+       \end{quote}
+    　検証の結果, オリジナル画像の学習モデル（表1）は検出率が4/10であったのに対し, 
+    AutoMSRCR画像の学習モデル（表2）では検出率が6/10まで向上した. 
+    このことから舗装された路面上や映り込みが発生しやすい環境においてもこの手法は有効であると言える. 
+
+    \begin{center}
+        \begin{figure}[H]
+            \caption{Sample}
+            \includegraphics[width=0.45\textwidth]{./fig/fig3.png}
+            \label{fig:sample-fig}
+        \end{figure}
+    \end{center}
+    \begin{center}
+        \begin{figure}[H]
+            \caption{Sample}
+            \includegraphics[width=0.45\textwidth]{./fig/fig4.png}
+            \label{fig:sample-fig}
+        \end{figure}
+    \end{center}
+
+    \subsection{検出した水たまりの回避}
+    （実装が間に合っていないため終わりしだい追記予定）
+
+    \section{結言}%===========================
 
 
 
