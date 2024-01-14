@@ -39,7 +39,7 @@
     自律移動ロボットを施設の清掃や警備, 荷物の運搬などに利用するためには
     様々な技術が求められる. 
     特に障害物回避はロボットや環境の保護のために不可欠な技術であり, 
-    これまで主に立体的な障害物を対象に研究開発が進められてきた. 
+    これまで主に立体的な障害物を対象に研究開発が進められてきた\cite{朝田2019}. 
     しかしながら, 屋外には水たまりをはじめとする平面的な障害物も存在し, 
     それらの回避も求められる場合がある. ロボットが水たまり上を走行すると, 
     浸水による故障, 窪みによるスタックやオドメトリの誤差の増加, 
@@ -50,33 +50,31 @@
     検出が困難である. そのため形状や反射光に左右されない検出手法が求められる.\\
     　 水たまり検出に関する取り組みとして, 
     色調を調整したカメラ画像からYOLOを用いて水たまり検出を行った研究がある. 
-    Xiaodongら\cite{工大2005}はYOLOにおける通常のカメラ画像からの水たまり検出が困難である要因が水の性質による
+    Xiaodongら\cite{Xiaodong2022}はYOLOにおける通常のカメラ画像からの水たまり検出が困難である要因が水の性質による
     低コントラスト化にあると考え, 画像に処理をかけ水のコントラストを強化する手法を提案した. 
     この研究では複数の画像強化手法を比較検証し, 
     AutoMSRCR処理を施した画像を学習させたモデルで水たまりの検出性能の向上を確認している. 
     しかし, この研究では露出オーバーの発生した環境での有効性を確認したのみで, 
-    自律移動ロボットが走行するような舗装された路面上や
-    電信柱などの環境の映り込みが発生しやすい環境での有効性の確認がされていない.  
-    また自律移動ロボットによる検出した水たまりの回避は行われていない. \\
+    自律移動ロボットが走行するような環境での有効性の確認がされていない.   \\
     　そこで, 本研究ではAutoMSRCR画像からの水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
     具体的には舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
-    の有効性の検証と, 自律移動ロボットによる検出した水たまりの回避を行う.
+    の有効性の検証を行う.
 
 
     \section{手法}%===========================
-        XiaodongらのAutoMSRCR画像からの水たまり検出手法と
-        自律移動ロボットによる検出した水たまりの回避の手法について述べる. 
+        XiaodongらのAutoMSRCR処理を用いた水たまり検出手法と
+        自律移動ロボットによる検出した水たまり回避手法について述べる. 
     \subsection{データセットの作成と学習}
     　以下がXiaodongらの研究で用いたデータセットの作成と学習の手順である. 
     \begin{quote}
-        \begin{itemize}
+        \begin{enumerate}
          \item 水たまりを含む画像の撮影
          \item 撮影した画像にAutoMSRCR処理
          \item 水たまり部分をアノテーション
          \item YOLOを用いて学習
-        \end{itemize}
+        \end{enumerate}
        \end{quote}
-    自律移動ロボットが走行するような環境での本手法の有効性の検証が目的となるため
+    自律移動ロボットが走行するような環境においての有効性の検証が目的となるため
     映り込みの多い環境や舗装された路面の水たまりを中心に撮影する. 今回は651枚の画像を用意した. 
     撮影した画像に対しAutoMSRCR処理を適用する. 
     \begin{figure}[H]
@@ -95,7 +93,7 @@
             \end{minipage}
         \end{tabular}
     \end{figure}
-    その際データセットの作成に使用する画像と推定に用いる画像の両方に適用する. 
+    その際データセット作成に使用する画像と推定に用いる画像の両方に適用する. 
     アノテーションツールにはVoTTを使用し, 1クラスのみでタグ付けを行う. 
     このようにして作成したデータセットをYOLOv5を用いて学習する. 
 
@@ -141,7 +139,10 @@
     （実装が間に合っていないため終わりしだい追記予定）
 
     \section{結言}%===========================
-
+    本稿では, 舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
+    の有効性を検証した. 検証の結果, オリジナル画像の学習モデルに比べAutoMSRCR画像の学習モデルでは
+    水たまりのみを検出できた割合が2割向上した. 
+    そのため自律移動ロボットが走行するような環境においても本手法が有効であるといえる. 
 
 
     
@@ -154,29 +155,17 @@
     \vspace{5truemm}
     {\footnotesize
         \begin{thebibliography}{99}
+
+            \bibitem{朝田2019}
+            朝田諒, 飯田訓久, 村主勝彦, 増田良平: ``ロボットコンバインのためのステレオカメラを用いた
+            物体検出および衝突回避''，農業食料工学会誌, 81 (2019), pp. 392-402.
+
+            \bibitem{Xiaodong2022}
+            Xiaodong Guo: ``Research on Water Hazards Detection Method Based on A-MSRCR and Improved YOLO'', 
+            Proceedings of the 2022 IEEE International Conference on Robotics and Biomimetics, 
+            December 5-9, (2022). 
+
             
-            \bibitem{工大2005}
-            工大太郎: ``ロボットのしくみ'', 
-            日本機械学会論文誌A, 
-            Vol.~108, No.~1034 (2005), pp.~1--2.
-            
-            \bibitem{Shibutani2004}
-            Y. Shibutani: ``Heinrich's Law Resulted Pattern Dynamics --Part2--''，
-            Proceedings of the 79th Kansai Branch Regular Meeting of the Japan Society of Mechanical Engineers,  
-            No.~04--05 (2004), pp.~205--206.
-            
-            \bibitem{Handbook1979}
-            The Japan Society of Mechanical Engineers ed.: ``JSME Date Handbook: Heat Transfer'', 
-            (1979), p.~123, The Japan Society of Mechanical Engineers.
-            
-            \bibitem{Kikuchi2017}
-            K. Kikuchi, M. Miura, K. Shibata, J. Yamamura: ``Soft Landing Condition for Stair-climbing Robot with Hopping Mechanism'', 
-            Journal of JSDE, Vol.~53, No.~8 (2018), pp.~605--614, \url{https://doi.org/10.14953/jjsde.2017.2774}.
-            
-            \bibitem{Adrobo2019}
-            千葉工業大学 未来ロボティクス学科 学科概要: 
-            \url{http://www.robotics.it-chiba.ac.jp/ja/subject/index.html}， 
-            （参照日 2023年1月29日）. 
             
         \end{thebibliography}
     }
