@@ -9,22 +9,29 @@
 \usepackage{url}
 \usepackage{here}
 %\usepackage[absolute]{textpos}
+\usepackage{setspace}
 
 \renewcommand\citeform[1]{(#1)}
 
 \begin{document}
+%\setstretch{0.93}
     
     \makeatletter
     \doctype{2023年度卒業論文概要}
     \title{自律移動ロボットのためのYOLOv5を用いた\\AutoMSRCR画像からの水たまり検出}{}
-    \etitle{Making Research Paper}{($\bigcirc\bigcirc\bigcirc$)}
+    \etitle{Puddle detection from AutoMSRCR images using YOLOv5 \\for autonomous mobile robots}{}
     
     \author{20C1106\hspace{.5zw}松井大和}
     \eauthor{Yamato Matsui}
     
     \makeatother
     
-    \abstract{When preparing the manuscript, read and observe carefully this sample as well as the instruction manual for the manuscript of the Transaction of Japan Society of Mechanical Engineers. This sample was prepared using MS-word. Character size of the English title is 14 pts of Times New Roman as well as sub-title. The name is 12 pts. The address of the first author and the abstract is 10 pts of Times New Roman. Character spacing of the abstract is narrowed by 0.2 pts preferably.}
+    \abstract{To verify the effectiveness of the puddle detection method using AutoMSRCR in an environment where a mobile robot is running.
+    In a previous study, the contrast of puddles was enhanced by applying AutoMSRCR to camera images.
+    The enhanced images are then trained using YOLO, and the improvement in puddle detection performance is confirmed.
+    However, this was only verified in a natural environment where overexposure occurred.
+    The detection performance in an environment where a mobile robot is running has not been verified.
+    Therefore, we will evaluate this method in the environment where the mobile robot runs, such as on a paved road surface or in an environment where the reflection of scenery is likely to occur.}
     
     \keywords{Mechanical Engineering, Keywords List}
     
@@ -39,7 +46,7 @@
     自律移動ロボットを施設の清掃や警備, 荷物の運搬などに利用するためには
     様々な技術が求められる. 
     特に障害物回避はロボットや環境の保護のために不可欠な技術であり, 
-    これまで主に立体的な障害物を対象に研究開発が進められてきた\cite{朝田2019}. 
+    これまで主に立体的な障害物を対象に研究開発が進められてきた\cite{朝田2019} . 
     しかしながら, 屋外には水たまりをはじめとする平面的な障害物も存在し, 
     それらの回避も求められる場合がある. ロボットが水たまり上を走行すると, 
     浸水による故障, 窪みによるスタックやオドメトリの誤差の増加, 
@@ -50,22 +57,21 @@
     検出が困難である. そのため形状や反射光に左右されない検出手法が求められる.\\
     　 水たまり検出に関する取り組みとして, 
     色調を調整したカメラ画像からYOLOを用いて水たまり検出を行った研究がある. 
-    Xiaodongら\cite{Xiaodong2022}はYOLOにおける通常のカメラ画像からの水たまり検出が困難である要因が水の性質による
-    低コントラスト化にあると考え, 画像に処理をかけ水のコントラストを強化する手法を提案した. 
-    この研究では複数の画像強化手法を比較検証し, 
-    AutoMSRCR処理を施した画像を学習させたモデルで水たまりの検出性能の向上を確認している. 
-    しかし, この研究では露出オーバーの発生した環境での有効性を確認したのみで, 
-    自律移動ロボットが走行するような環境での有効性の確認がされていない.   \\
-    　そこで, 本研究ではAutoMSRCR画像からの水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
-    具体的には舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
+    Xiaodongら\cite{Xiaodong2022}はカメラ画像からの水たまり検出が困難である要因が水の性質による
+    低コントラスト化にあると考え, カメラ画像に処理をかけ水のコントラストを強化する手法を提案した. 
+    この研究では複数の画像強化手法の比較検証をおこなった. 
+    その結果, AutoMSRCRという環境光の影響を低減し物体の色を復元する処理を施した画像を学習させたモデルで
+    水たまりの検出性能の向上を確認している. 
+    しかし, この研究では露出オーバーの発生した自然環境での有効性を確認したのみで, 
+    自律移動ロボットが走行するような環境において, 有効性の確認がされていない.   \\
+    　そこで本研究では, AutoMSRCR処理を用いた水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
+    舗装された路面上や映り込みが発生しやすい環境の水たまりにおいての本手法
     の有効性の検証を行う.
 
 
     \section{手法}%===========================
-        XiaodongらのAutoMSRCR処理を用いた水たまり検出手法と
-        自律移動ロボットによる検出した水たまり回避手法について述べる. 
-    \subsection{データセットの作成と学習}
-    　以下がXiaodongらの研究で用いたデータセットの作成と学習の手順である. 
+        XiaodongらのAutoMSRCR処理を用いた水たまり検出手法について述べる. 
+    以下がXiaodongらの研究で用いたデータセットの作成と学習の手順である. 
     \begin{quote}
         \begin{enumerate}
          \item 水たまりを含む画像の撮影
@@ -74,7 +80,7 @@
          \item YOLOを用いて学習
         \end{enumerate}
        \end{quote}
-    自律移動ロボットが走行するような環境においての有効性の検証が目的となるため
+    　自律移動ロボットが走行する環境を想定し, 
     映り込みの多い環境や舗装された路面の水たまりを中心に撮影する. 今回は651枚の画像を用意した. 
     撮影した画像に対しAutoMSRCR処理を適用する. 
     \begin{figure}[H]
@@ -97,14 +103,11 @@
     アノテーションツールにはVoTTを使用し, 1クラスのみでタグ付けを行う. 
     このようにして作成したデータセットをYOLOv5を用いて学習する. 
 
-    \subsection{検出した水たまりの回避}
-    （実装が間に合っていないため終わりしだい追記予定）
 
     \section{実験}%===========================
     舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証する. 
-    \subsection{移動ロボットを動かす環境でのAutoMSRCR画像からの水たまり検出手法の有効性の検証}
-    　評価のため用意した水たまりを含む画像から10枚を抽出し, 
+    評価のため用意した水たまりを含む画像から10枚を抽出し, 
     オリジナル画像の学習モデルとAutoMSRCR画像の学習モデルのそれぞれを使用して推定, 評価を行う. \\
     　評価基準は以下のものとする. 
     \begin{quote}
@@ -112,7 +115,8 @@
          \item Recall(R) 
          \item Precision(P) 
          \item しきい値: IoU 0.5
-         \item RとP両方の値が1.0だった場合を正解とする
+         \item RとP両方の値が1.0だった場合をTrue(T), 
+         そうでない場合をFalse(F)とする
          
         \end{itemize}
        \end{quote}
@@ -120,29 +124,172 @@
     AutoMSRCR画像の学習モデル（表2）では検出率が6/10まで向上した. 
     このことから舗装された路面上や映り込みが発生しやすい環境においてもこの手法は有効であると言える. 
 
-    \begin{center}
-        \begin{figure}[H]
-            \caption{Sample}
-            \includegraphics[width=0.45\textwidth]{./fig/fig3.png}
-            \label{fig:sample-fig}
-        \end{figure}
-    \end{center}
-    \begin{center}
-        \begin{figure}[H]
-            \caption{Sample}
-            \includegraphics[width=0.45\textwidth]{./fig/fig4.png}
-            \label{fig:sample-fig}
-        \end{figure}
-    \end{center}
 
-    \subsection{検出した水たまりの回避}
-    （実装が間に合っていないため終わりしだい追記予定）
+
+    \begin{table}[H]
+        \caption{Original model}
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+           & Answer & Result & R   & P   & T or F \\ \hline
+        1  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab1_a.png}
+        \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab1_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F     \\ \hline
+        2  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab2_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab2_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        3  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab3_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab3_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        4  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab4_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab4_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        5  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab5_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab5_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        6  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab6_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab6_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        7  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab7_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab7_r.png}
+           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
+        8  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab8_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab8_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        9  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab9_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab9_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        10 & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab10_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/tab10_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
+        \end{tabular}
+        \end{table}
+
+
+    \begin{table}[H]
+        \caption{AutoMSRCR model}
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+           & Answer & Result & R   & P   & T or F \\ \hline
+        1  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab1_a.png}
+        \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab1_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        2  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab2_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab2_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        3  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab3_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab3_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        4  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab4_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab4_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        5  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab5_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab5_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        6  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab6_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab6_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        7  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab7_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab7_r.png}
+           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
+        8  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab8_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab8_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        9  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab9_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab9_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        10 & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab10_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.8\linewidth]{./fig/2tab10_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
+        \end{tabular}
+        \end{table}
+ 
 
     \section{結言}%===========================
     本稿では, 舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証した. 検証の結果, オリジナル画像の学習モデルに比べAutoMSRCR画像の学習モデルでは
     水たまりのみを検出できた割合が2割向上した. 
-    そのため自律移動ロボットが走行するような環境においても本手法が有効であるといえる. 
+    そのため自律移動ロボットが走行するような環境においても本手法が有効であるといえる.
+     
 
 
     
