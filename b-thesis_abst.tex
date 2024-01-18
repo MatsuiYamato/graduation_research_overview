@@ -14,7 +14,7 @@
 \renewcommand\citeform[1]{(#1)}
 
 \begin{document}
-%\setstretch{0.93}
+\setstretch{0.90}
     
     \makeatletter
     \doctype{2023年度卒業論文概要}
@@ -26,12 +26,12 @@
     
     \makeatother
     
-    \abstract{To verify the effectiveness of the puddle detection method using AutoMSRCR in an environment where a mobile robot is running.
+    \abstract{We tested the effectiveness of the AutoMSRCR-based puddle detection method in an environment where a mobile robot is running.
     In a previous study, the contrast of puddles was enhanced by applying AutoMSRCR to camera images.
     The enhanced images are then trained using YOLO, and the improvement in puddle detection performance is confirmed.
     However, this was only verified in a natural environment where overexposure occurred.
     The detection performance in an environment where a mobile robot is running has not been verified.
-    Therefore, we will evaluate this method in the environment where the mobile robot runs, such as on a paved road surface or in an environment where the reflection of scenery is likely to occur.}
+    Therefore, we evaluated this method in the environment where the mobile robot runs, such as on a paved road surface or in an environment where the reflection of scenery is likely to occur.}
     
     \keywords{Mechanical Engineering, Keywords List}
     
@@ -56,17 +56,17 @@
     　しかし, 水たまりは不規則な形状であることや景色の映り込みが発生しやすい性質から, 
     検出が困難である. そのため形状や反射光に左右されない検出手法が求められる.\\
     　 水たまり検出に関する取り組みとして, 
-    色調を調整したカメラ画像からYOLOを用いて水たまり検出を行った研究がある. 
+    色調を調整したカメラ画像からYOLOを用いて水たまりを検出した研究事例がある. 
     Xiaodongら\cite{Xiaodong2022}はカメラ画像からの水たまり検出が困難である要因が水の性質による
     低コントラスト化にあると考え, カメラ画像に処理をかけ水のコントラストを強化する手法を提案した. 
-    この研究では複数の画像強化手法の比較検証をおこなった. 
+    この研究では複数の画像処理手法の比較検証をおこなった. 
     その結果, AutoMSRCRという環境光の影響を低減し物体の色を復元する処理を施した画像を学習させたモデルで
     水たまりの検出性能の向上を確認している. 
-    しかし, この研究では露出オーバーの発生した自然環境での有効性を確認したのみで, 
+    しかし, この研究では露出オーバーの発生した自然環境でのみ検証された.  
     自律移動ロボットが走行するような環境において, 有効性の確認がされていない.   \\
     　そこで本研究では, AutoMSRCR処理を用いた水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
     舗装された路面上や映り込みが発生しやすい環境の水たまりにおいての本手法
-    の有効性の検証を行う.
+    の有効性の検証をする.
 
 
     \section{手法}%===========================
@@ -86,15 +86,15 @@
     \begin{figure}[H]
         \begin{tabular}{cc}
             \begin{minipage}{.1\textwidth}
-                \vspace{5mm}\centering
+                \centering
                 \includegraphics[width=2.0\linewidth]{./fig/fig1.png}
-                \caption{Original}
+                \vspace{-10mm}\caption{Original}
                 \label{fig_first}
             \end{minipage}
             \begin{minipage}{.5\textwidth}
-                \vspace{5mm}\centering\centering
+                \centering
                 \includegraphics[width=0.4\linewidth]{./fig/fig2.png}
-                \caption{AutoMSRCR}
+                \vspace{-5mm}\caption{AutoMSRCR}
                 \label{fig_second}
             \end{minipage}
         \end{tabular}
@@ -108,13 +108,13 @@
     舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証する. 
     評価のため用意した水たまりを含む画像から10枚を抽出し, 
-    オリジナル画像の学習モデルとAutoMSRCR画像の学習モデルのそれぞれを使用して推定, 評価を行う. \\
+    オリジナル画像の学習モデルとAutoMSRCR画像の学習モデルのそれぞれを使用して推定, 評価をする. \\
     　評価基準は以下のものとする. 
     \begin{quote}
         \begin{itemize}
          \item Recall(R) 
          \item Precision(P) 
-         \item しきい値: IoU 0.5
+         \item しきい値をIoU: 0.5とする
          \item RとP両方の値が1.0だった場合をTrue(T), 
          そうでない場合をFalse(F)とする
          
@@ -122,173 +122,13 @@
        \end{quote}
     　検証の結果, オリジナル画像の学習モデル（表1）は検出率が4/10であったのに対し, 
     AutoMSRCR画像の学習モデル（表2）では検出率が6/10まで向上した. 
-    このことから舗装された路面上や映り込みが発生しやすい環境においてもこの手法は有効であると言える. 
-
-
-
-    \begin{table}[H]
-        \caption{Original model}
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-           & Answer & Result & R   & P   & T or F \\ \hline
-        1  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab1_a.png}
-        \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab1_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F     \\ \hline
-        2  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab2_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab2_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        3  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab3_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab3_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        4  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab4_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab4_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        5  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab5_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab5_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        6  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab6_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab6_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        7  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab7_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab7_r.png}
-           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
-        8  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab8_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab8_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        9  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab9_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab9_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        10 & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab10_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/tab10_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
-        \end{tabular}
-        \end{table}
-
-
-    \begin{table}[H]
-        \caption{AutoMSRCR model}
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-           & Answer & Result & R   & P   & T or F \\ \hline
-        1  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab1_a.png}
-        \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab1_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        2  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab2_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab2_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        3  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab3_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab3_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        4  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab4_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab4_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        5  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab5_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab5_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        6  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab6_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab6_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        7  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab7_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab7_r.png}
-           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
-        8  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab8_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab8_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
-        9  & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab9_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab9_r.png}
-           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
-        10 & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab10_a.png}
-           \end{minipage}       & \begin{minipage}{.1\textwidth}
-            \centering
-            \includegraphics[width=0.8\linewidth]{./fig/2tab10_r.png}
-           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
-        \end{tabular}
-        \end{table}
- 
+    %このことから舗装された路面上や映り込みが発生しやすい環境においてもこの手法は有効であると言える. 
 
     \section{結言}%===========================
     本稿では, 舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証した. 検証の結果, オリジナル画像の学習モデルに比べAutoMSRCR画像の学習モデルでは
     水たまりのみを検出できた割合が2割向上した. 
-    そのため自律移動ロボットが走行するような環境においても本手法が有効であるといえる.
+    そのため自律移動ロボットが走行する環境においても本手法が有効であるといえる.
      
 
 
@@ -308,7 +148,7 @@
             物体検出および衝突回避''，農業食料工学会誌, 81 (2019), pp. 392-402.
 
             \bibitem{Xiaodong2022}
-            Xiaodong Guo: ``Research on Water Hazards Detection Method Based on A-MSRCR and Improved YOLO'', 
+            Xiaodong Guo: ``Research on Water Hazards Detection Method Based on A-MSRCR and Improved YOLO, ''
             Proceedings of the 2022 IEEE International Conference on Robotics and Biomimetics, 
             December 5-9, (2022). 
 
@@ -317,5 +157,167 @@
         \end{thebibliography}
     }
     \normalsize
+
+
+
+    \begin{table}[H]
+        \caption{Original model}
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+           & Answer & Result & R   & P   & T or F \\ \hline
+        1  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab1_a.png}
+        \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab1_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F     \\ \hline
+        2  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab2_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab2_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        3  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab3_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab3_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        4  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab4_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab4_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        5  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab5_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab5_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        6  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab6_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab6_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        7  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab7_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab7_r.png}
+           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
+        8  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab8_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab8_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        9  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab9_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab9_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        10 & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab10_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/tab10_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
+        \end{tabular}
+        \end{table}
+
+
+    \begin{table}[H]
+        \caption{AutoMSRCR model}
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+           & Answer & Result & R   & P   & T or F \\ \hline
+        1  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab1_a.png}
+        \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab1_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        2  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab2_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab2_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        3  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab3_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab3_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        4  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab4_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab4_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        5  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab5_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab5_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        6  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab6_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab6_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        7  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab7_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab7_r.png}
+           \end{minipage}       & 1.0 & 0.5 & F      \\ \hline
+        8  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab8_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab8_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T       \\ \hline
+        9  & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab9_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab9_r.png}
+           \end{minipage}       & 0.0 & 0.0 & F      \\ \hline
+        10 & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab10_a.png}
+           \end{minipage}       & \begin{minipage}{.1\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{./fig/2tab10_r.png}
+           \end{minipage}       & 1.0 & 1.0 & T      \\ \hline
+        \end{tabular}
+        \end{table}
+ 
+
+
     
 \end{document}
