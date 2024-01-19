@@ -30,7 +30,7 @@
     In a previous study, the contrast of puddles was enhanced by applying AutoMSRCR to camera images.
     The enhanced images were then trained using YOLO, and the improvement in puddle detection performance was confirmed.
     However, this was only verified in a natural environment where overexposure occurred.
-    The detection performance in environments on paved road surfaces or in environments where reflection of scenery is likely to occur has not yet been verified.
+    The detection performance in environments on paved road surfaces or in environments where reflection of scenery is likely to occurs has not yet been verified.
     Therefore, we evaluated the method in such environments. Verification resulted in a 20\% increase in detection rate.}
     
     \keywords{Mechanical Engineering, Keywords List}
@@ -65,7 +65,7 @@
     しかし, この研究では露出オーバーの発生した自然環境でのみ検証された.  
     そのため自律移動ロボットが走行するような環境において, 有効性の確認がされていない.   \\
     　そこで本研究では, AutoMSRCR処理を用いた水たまり検出手法を, 移動ロボットに応用することを目的とする. 
-    舗装された路面や映り込みが発生しやすい環境においての本手法
+    自律移動ロボットが走行することを想定し, 舗装された路面や映り込みが発生しやすい環境においての本手法
     の有効性を検証する.
 
 
@@ -80,7 +80,7 @@
          \item YOLOを用いて学習
         \end{enumerate}
        \end{quote}
-    　自律移動ロボットが走行する環境を想定し, 
+    　%自律移動ロボットが走行する環境を想定し, 
     映り込みの多い環境や舗装された路面の水たまりを中心に撮影する. 今回は651枚の画像を用意した. 
     撮影した画像に対しAutoMSRCR処理を適用する. 
     \begin{figure}[H]
@@ -128,9 +128,9 @@
     本稿では, 舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証した. 検証の結果, オリジナル画像の学習モデルに比べAutoMSRCR画像の学習モデルでは
     水たまりのみを検出できた割合が2割向上した. 
-    そのため自律移動ロボットが走行する環境においても本手法が有効である可能性がある. \\
-    　今回の実験では試行回数が少なく本手法の優位性が確かではない.  
-    そのため今後は試行回数を増やし, 実機実験を行うなど更なる検証を重ねる必要がある. \\
+    検証例が少ないが, 自律移動ロボットが走行する環境においても本手法が有効である可能性がある. 
+    %今回の実験では試行回数が少なく本手法の優位性が確かではない.  
+    今後は試行回数を増やし, 実機実験を行うなど更なる検証を重ねる必要がある. \\
     　また異なる水たまりの検出手法としてLiDARを用いたものがある\cite{Hirotaka2019} . 
     この手法は粗い路面上の水たまりは検出が困難だが, 複雑な形状の水たまりを検出できる. 
     そのため本稿で用いた手法と併用することにより検出率を増加させられる可能性がある. 
@@ -331,4 +331,3 @@
 
     
 \end{document}
-
