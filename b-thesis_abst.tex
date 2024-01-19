@@ -14,7 +14,7 @@
 \renewcommand\citeform[1]{(#1)}
 
 \begin{document}
-\setstretch{0.90}
+%\setstretch{0.90}
     
     \makeatletter
     \doctype{2023年度卒業論文概要}
@@ -26,12 +26,12 @@
     
     \makeatother
     
-    \abstract{We tested the effectiveness of the AutoMSRCR-based puddle detection method in an environment where a mobile robot is running.
+    \abstract{We tested the effectiveness of the AutoMSRCR-based puddle detection method in an environment where a mobile robots run.
     In a previous study, the contrast of puddles was enhanced by applying AutoMSRCR to camera images.
     The enhanced images are then trained using YOLO, and the improvement in puddle detection performance is confirmed.
     However, this was only verified in a natural environment where overexposure occurred.
-    The detection performance in an environment where a mobile robot is running has not been verified.
-    Therefore, we evaluated this method in the environment where the mobile robot runs, such as on a paved road surface or in an environment where the reflection of scenery is likely to occur.}
+    The detection performance in environments on paved road surfaces or in environments where reflection of scenery is likely to occur has not yet been verified.
+    Therefore, we evaluated this method in such environments.}
     
     \keywords{Mechanical Engineering, Keywords List}
     
@@ -63,10 +63,10 @@
     その結果, AutoMSRCRという環境光の影響を低減し物体の色を復元する処理を施した画像を学習させたモデルで
     水たまりの検出性能の向上を確認している. 
     しかし, この研究では露出オーバーの発生した自然環境でのみ検証された.  
-    自律移動ロボットが走行するような環境において, 有効性の確認がされていない.   \\
-    　そこで本研究では, AutoMSRCR処理を用いた水たまり検出手法の移動ロボットを動かす環境への応用を目的とする. 
+    そのため自律移動ロボットが走行するような環境において, 有効性の確認がされていない.   \\
+    　そこで本研究では, AutoMSRCR処理を用いた水たまり検出手法の, 移動ロボットを動かす環境への応用を目的とする. 
     舗装された路面上や映り込みが発生しやすい環境の水たまりにおいての本手法
-    の有効性の検証をする.
+    の有効性を検証する.
 
 
     \section{手法}%===========================
@@ -121,14 +121,14 @@
         \end{itemize}
        \end{quote}
     　検証の結果, オリジナル画像の学習モデル（表1）は検出率が4/10であったのに対し, 
-    AutoMSRCR画像の学習モデル（表2）では検出率が6/10まで向上した. 
+    AutoMSRCR画像の学習モデル（表2）では検出率が6/10であった. 
     %このことから舗装された路面上や映り込みが発生しやすい環境においてもこの手法は有効であると言える. 
 
     \section{結言}%===========================
     本稿では, 舗装された路面上や映り込みが発生しやすい環境でのAutoMSRCR画像からの水たまり検出手法
     の有効性を検証した. 検証の結果, オリジナル画像の学習モデルに比べAutoMSRCR画像の学習モデルでは
-    水たまりのみを検出できた割合が2割向上した. 
-    そのため自律移動ロボットが走行する環境においても本手法が有効であるといえる.
+    水たまりのみを検出できた割合が2割向上した可能性が高い. 
+    %そのため自律移動ロボットが走行する環境においても本手法が有効であるといえる.
      
 
 
